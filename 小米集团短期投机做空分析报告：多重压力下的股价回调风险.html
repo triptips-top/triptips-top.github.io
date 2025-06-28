@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小米集团短期投机做空分析报告</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js"
+        integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-text: #333;
+            --light-text: #6c757d;
+            --border-color: #e9ecef;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --header-height: 60px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: var(--light-bg);
+            padding-top: var(--header-height);
+        }
+
+        header {
+            background-color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-text);
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .hero h1 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 2.2rem;
+        }
+
+        .hero p {
+            color: var(--light-text);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight {
+            background-color: rgba(231, 76, 60, 0.1);
+            padding: 1rem;
+            border-radius: 4px;
+            border-left: 4px solid var(--accent-color);
+            margin: 1.5rem 0;
+        }
+
+        .highlight p {
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+            font-size: 1.8rem;
+        }
+
+        .section h3 {
+            color: var(--secondary-color);
+            margin: 1.5rem 0 1rem;
+            font-size: 1.4rem;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+        }
+
+        .risk-point {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .risk-icon {
+            color: var(--accent-color);
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+            margin-top: 0.2rem;
+        }
+
+        .risk-content {
+            flex: 1;
+        }
+
+        .risk-content h4 {
+            color: var(--dark-text);
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 2rem 0;
+        }
+
+        .two-column {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .column {
+            flex: 1;
+        }
+
+        .strategy-box {
+            background-color: rgba(52, 152, 219, 0.05);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .strategy-box h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .strategy-box ul {
+            padding-left: 1.5rem;
+        }
+
+        .strategy-box li {
+            margin-bottom: 0.5rem;
+        }
+
+        .conclusion {
+            background-color: rgba(44, 62, 80, 0.05);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+
+        .conclusion h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .conclusion p {
+            margin-bottom: 1rem;
+        }
+
+        .highlight-text {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .disclaimer {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .two-column {
+                flex-direction: column;
+            }
+
+            header {
+                padding: 0 1rem;
+            }
+
+            nav ul li {
+                margin-left: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+
+            .section h3 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">投资分析报告</div>
+        <nav>
+            <ul>
+                <li><a href="#investment-points">投资要点</a></li>
+                <li><a href="#valuation">估值分析</a></li>
+                <li><a href="#auto-risk">汽车业务风险</a></li>
+                <li><a href="#macro-risk">宏观风险</a></li>
+                <li><a href="#competitor">竞争对手</a></li>
+                <li><a href="#internal-risk">内部风险</a></li>
+                <li><a href="#technical-analysis">技术分析</a></li>
+                <li><a href="#strategy">做空策略</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <h1>小米集团(01810.HK)短期投机做空分析报告</h1>
+            <p>多重压力下的股价回调风险</p>
+            <div class="highlight">
+                <p>本报告认为小米集团短期内股价面临显著回调压力，建议投资者考虑短期投机做空策略。核心做空理由包括：过高估值透支未来增长、汽车业务交付不及预期风险、中美贸易关税升级冲击、华为等竞争对手强力挑战、股东减持与融资压力以及技术面超买信号。
+                </p>
+            </div>
+        </div>
+
+        <div id="investment-points" class="section">
+            <h2>一、投资要点</h2>
+            <p>小米集团近期股价表现强劲，2025年6月27日港股开盘大涨8%创下历史新高，主要受益于YU7车型的积极市场反响。然而，在看似乐观的表面下，多重短期风险因素正在积聚。</p>
+
+            <div class="highlight">
+                <p>预计在这些因素综合作用下，小米股价有望在1-3个月内从当前58.95港元高位回落至45-50港元区间，跌幅约15%-25%。</p>
+            </div>
+
+            <div class="risk-point">
+                <div class="risk-icon">⚠️</div>
+                <div class="risk-content">
+                    <h4>核心做空理由</h4>
+                    <ul>
+                        <li>过高估值透支未来增长</li>
+                        <li>汽车业务交付不及预期风险</li>
+                        <li>中美贸易关税升级冲击</li>
+                        <li>华为等竞争对手强力挑战</li>
+                        <li>股东减持与融资压力</li>
+                        <li>技术面超买信号</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="valuation" class="section">
+            <h2>二、估值分析：高溢价已显著透支未来预期</h2>
+
+            <h3>2.1 市盈率处于历史高位，估值泡沫明显</h3>
+            <p>小米当前股价58.95港元对应2025-2027年35.2/24.8/21.3倍PE，已处于历史高位。摩根大通分析指出，小米当前12个月远期市盈率达40倍，目前的估值已近历史峰值，仅次于腾讯和阿里巴巴，超越比亚迪约17%。
+            </p>
+
+            <div class="chart-container">
+                <canvas id="peRatioChart"></canvas>
+            </div>
+
+            <p>高盛报告也指出，小米2025年市盈率已攀升至53.3倍，创历史新高，而汽车业务虽贡献15%营收却亏损62亿元，估值与基本面的阶段性背离，正是高位增发的黄金窗口。</p>
+
+            <h3>2.2 汽车业务估值占比过高，存在严重高估</h3>
+            <p>券商预测显示，电动汽车业务估值已占集团总市值35%，而2025年Q1汽车业务实际亏损5亿元。市场对汽车业务的预期已极度乐观，包含2030年预测的175万辆，或2035年预测350万辆的出货量，相当于2025年预期的5倍以上。
+            </p>
+
+            <div class="highlight">
+                <p>在剔除核心业务和现金价值后，小米当前股价已隐含其未来电动车业务的最佳预估，几乎没有留给市场惊喜的空间。若汽车交付量不及预期，股价可能下探45港元。</p>
+            </div>
+
+            <h3>2.3 历史对比显示估值回调风险高</h3>
+            <p>从历史估值周期看，小米的估值波动较大。2021年1月，小米股价达到阶段性高点35.9港元/股，随后受全球科技股估值回调、供应链短缺及市场对智能手机需求放缓的担忧影响，股价进入下行通道，2022年10月跌至历史低点8.31港元/股，较2021年高点累计跌幅达76.9%。
+            </p>
+
+            <div class="chart-container">
+                <canvas id="stockPriceChart"></canvas>
+            </div>
+
+            <p>2025年3月25日，小米集团以"先旧后新"方式配售8亿股，消息公布后，小米股价当日暴跌6.32%，市值蒸发逾900亿港元，这表明市场对高估值的小米股票接受度已大幅下降。</p>
+        </div>
+
+        <div id="auto-risk" class="section">
+            <h2>三、汽车业务风险：交付能力与市场竞争双重压力</h2>
+
+            <h3>3.1 产能瓶颈制约交付目标实现</h3>
+            <p>小米汽车产能扩张不及预期，可能成为短期内股价下跌的关键触发因素。北京工厂满负荷运转下，若新产能扩张滞后或影响交付目标。根据最新数据，小米汽车北京亦庄工厂规划年产能为30万辆（双班制满负荷），但2025年Q1实际月产能约1.2-1.5万辆，实际产能利用率仅为设计产能的40%-50%。
+            </p>
+
+            <div class="highlight">
+                <p>二期工厂原计划于2025年6月投产，新增年产能15万辆，但根据最新信息，工厂投产进度可能延迟。即使二期工厂按时投产，产能爬坡也需要时间，难以在短期内显著提升交付量。</p>
+            </div>
+
+            <h3>3.2 订单增速放缓，市场热度降温</h3>
+            <p>小米SU7系列订单增速已出现明显放缓迹象。华为智界S9、蔚来ET7改款等竞品降价促销，导致SU7订单增速边际放缓(周环比-15%)。虽然YU7于6月26日晚发布后3分钟内大定突破20万台，1小时内达到28.9万台，但这种短期爆发式订单可能无法持续转化为实际交付量，且可能透支未来需求。
+            </p>
+
+            <h3>3.3 竞争加剧，市场份额面临挤压</h3>
+            <p>小米汽车面临来自多方的激烈竞争。华为智界S9、蔚来ET7改款等竞品降价促销，直接冲击小米SU7的市场地位。华为余承东宣布，华为已为L3级别智能驾驶的到来做好准备，其技术优势可能对小米形成压力。</p>
+
+            <div class="risk-point">
+                <div class="risk-icon">⚠️</div>
+                <div class="risk-content">
+                    <h4>汽车业务价格战风险</h4>
+                    <p>特斯拉Model Y等竞品的持续降价策略也给小米带来定价压力。尽管小米SU7
+                        Ultra于2月27日正式发布，官方指导价为52.99万元，比预售价格81.49万元大幅降低28.5万元，试图通过价格优势抢占高端市场，但这种大幅降价也压缩了利润空间。</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="macro-risk" class="section">
+            <h2>四、宏观环境与政策风险：贸易摩擦加剧</h2>
+
+            <h3>4.1 中美贸易关税升级对供应链的冲击</h3>
+            <p>中美贸易摩擦加剧对小米形成多重压力。美国对中国电动汽车加征的关税税率已从25%提高至100%，同时对中国EV电池加征25%的关税。此外，美国还对中国加征34%的"对等关税"，重点覆盖新能源汽车、锂电池及车载芯片领域，可能涉及小米汽车关键部件。
+            </p>
+
+            <div class="highlight">
+                <p>这些关税措施虽然主要针对美国市场，但全球供应链的紧张可能间接推高零部件采购成本，影响小米汽车的毛利率。高盛报告指出，由于美国关税的影响，已将小米集团2025至2027年非电动汽车业务的经调整净利润预测下调4%至9%。
+                </p>
+            </div>
+
+            <h3>4.2 欧盟市场潜在风险</h3>
+            <p>除美国外，欧盟市场也存在潜在风险。欧盟对中国电动车反补贴税听证会将于2025年4月举行，若落地可能分流部分产能至海外仓，进一步加剧小米的供应链压力。</p>
+
+            <h3>4.3 中国消费刺激政策退坡</h3>
+            <p>中国新能源补贴政策若调整或影响需求。2025年Q1中国智能手机市场的销售得益于政策红利，带动销量微幅成长，但这种政策刺激效应正在减弱。</p>
+
+            <p>Canalys预测，2025年全球智能手机市场增长将快速放缓至1.5%，且不同地区的市场表现将存在差异，部分地区的增长可能会达到拐点并开始下滑。</p>
+        </div>
+
+        <div id="competitor" class="section">
+            <h2>五、竞争对手动态：华为强势回归与苹果低端化</h2>
+
+            <h3>5.1 华为高端手机强势回归</h3>
+            <p>华为在高端手机市场的强势回归对小米形成直接冲击。华为Mate 70系列(搭载麒麟9020芯片)与小米15系列在高端市场的竞争加剧。华为Pura
+                X发布会上，余承东宣布华为终端将全面迈向鸿蒙操作系统的新纪元，这将进一步增强华为的生态竞争力。</p>
+
+            <h3>5.2 华为鸿蒙PC抢占市场份额</h3>
+            <p>华为于5月19日推出鸿蒙电脑HUAWEI MateBook Pro与MateBook
+                Fold非凡大师，正式进军PC市场。2025年鸿蒙PC出货量预计将突破700万台，占中国市场份额20%-25%，平均售价降至6000元。</p>
+
+            <div class="risk-point">
+                <div class="risk-icon">⚠️</div>
+                <div class="risk-content">
+                    <h4>鸿蒙PC的竞争威胁</h4>
+                    <p>鸿蒙操作系统的分布式架构和自主可控特性，有望填补国产操作系统在PC领域的空白，尤其在政企市场将快速替代Windows。华为通过在交互体验、系统底层、AI融合及生态构建等层面的创新，正试图将行业的竞争维度，从传统的硬件比拼，拉向更深层次的综合体验与生态价值的较量。
+                    </p>
+                </div>
+            </div>
+
+            <h3>5.3 苹果低端渗透策略</h3>
+            <p>苹果推出399美元iPhone SE，可能分流小米中低端用户。苹果在2025年第二财季营收达953.6亿美元(同比+5.1%)，其中iPhone收入468.4亿美元，占比达49.1%。</p>
+        </div>
+
+        <div id="internal-risk" class="section">
+            <h2>六、公司内部风险：资本运作与管理挑战</h2>
+
+            <h3>6.1 高位增发引发市场信心动摇</h3>
+            <p>2025年3月25日，小米集团以"先旧后新"方式配售8亿股，折价6.6%融资425亿港元。消息公布后，小米股价当日暴跌6.32%，市值蒸发逾900亿港元。</p>
+
+            <div class="highlight">
+                <p>这一事件表明，市场对小米在高估值水平下的融资行为持负面态度，认为这是管理层对当前股价估值泡沫的精准判断。</p>
+            </div>
+
+            <h3>6.2 股东减持与机构持股变化</h3>
+            <p>近期出现了一系列重要股东减持小米股票的情况。4月22日黑石集团减持1.2亿股(套现约56亿港元)，机构持股比例降至61%。更值得关注的是，美的集团2024年清仓持有近10年的小米股票，套现约20亿元，引发投资者对未来发展的担忧。
+            </p>
+
+            <h3>6.3 产品安全事件影响品牌声誉</h3>
+            <p>2025年3月29日，一辆小米SU7在安徽高速撞击隔离带后爆燃，三名00后女孩不幸遇难。这一事件导致小米股价在4月1日暴跌5.59%，4月2日再度暴跌4.19%，两天市值缩水超1200亿港元。</p>
+
+            <div class="risk-point">
+                <div class="risk-icon">⚠️</div>
+                <div class="risk-content">
+                    <h4>安全事件的连锁反应</h4>
+                    <p>尽管小米紧急联合五大险企辟谣网传"SU7遭保险公司集体拒保"的谣言，但负面信息扩散已加剧市场恐慌。这一事件暴露出小米在汽车安全技术和危机公关方面的不足，可能对其品牌形象和产品销售产生长期影响。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="technical-analysis" class="section">
+            <h2>七、技术分析：超买信号与破位风险</h2>
+
+            <h3>7.1 短期技术指标显示超买</h3>
+            <p>小米股价近期创下59.45港元的历史纪录，技术指标已显示明显的超买信号。6月27日小米股价大涨8%，RSI(14)值已升至58，接近超买区域。</p>
+
+            <p>MACD指标显示绿柱加速扩大(-0.35)，日线级别下跌通道确立。布林通道开口向下，下轨下移至49.3港元，为股价下行提供了技术目标。</p>
+
+            <h3>7.2 关键支撑位跌破，引发恐慌性抛售</h3>
+            <p>51.0港元防线失守，引发恐慌抛售。2025年5月30日，小米股价收盘50.95港元(-1.45%)，日内两度击穿51.0港元心理关口，最低下探50.50港元，创5月新低。</p>
+
+            <div class="highlight">
+                <p>历史数据显示，2024年6月MACD死叉后小米曾连跌14日，累计跌幅22%。这种技术性破位往往会引发程序化交易卖盘，进一步加剧股价下跌。</p>
+            </div>
+
+            <h3>7.3 空头力量显著增强</h3>
+            <p>小米的沽空比例已飙升至15.46%(空单成交16.22亿港元)，空头平均成本51.0港元(浮盈0.1%)。这表明专业投资者已开始大规模做空小米股票，市场情绪正在发生重大转变。</p>
+        </div>
+
+        <div id="strategy" class="section">
+            <h2>八、做空策略与风险控制</h2>
+
+            <div class="two-column">
+                <div class="column">
+                    <div class="strategy-box">
+                        <h4>做空时机选择</h4>
+                        <ol>
+                            <li><strong>技术反弹至关键阻力位时</strong>：当股价反弹至51.3-51.5港元(压力区密集套牢盘)时，是做空的理想时机。</li>
+                            <li><strong>重大事件公布后</strong>：如YU7实际交付量不及预期、Q2财报显示汽车业务亏损扩大或智能手机出货量低于预期等。</li>
+                            <li><strong>市场情绪极度乐观时</strong>：如股价创历史新高但成交量异常放大，或媒体普遍看好小米前景时。</li>
+                        </ol>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h4>做空工具选择</h4>
+                        <ul>
+                            <li><strong>直接卖空港股</strong>：适合资金量大、经验丰富的投资者，需注意维持保证金要求。</li>
+                            <li><strong>买入认沽期权</strong>：买入行权价49.8港元，代码25099.HK的认沽涡轮，杠杆比维持8-10倍，可有效控制风险。</li>
+                            <li><strong>做空相关ETF</strong>：如做空恒生科技指数ETF，间接对冲小米风险。</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="strategy-box">
+                        <h4>止损与止盈策略</h4>
+                        <h5>止损位设置</h5>
+                        <ul>
+                            <li>绝对止损：做空后若股价上涨超过15%，立即止损离场。</li>
+                            <li>技术止损：若股价突破60港元关键阻力位，考虑止损。</li>
+                        </ul>
+
+                        <h5>止盈目标</h5>
+                        <ul>
+                            <li>第一目标位：45港元，对应2025年PE约25倍。</li>
+                            <li>第二目标位：40港元，对应历史估值低位。</li>
+                        </ul>
+
+                        <h5>分批止盈</h5>
+                        <p>建议在股价下跌10%、15%和20%时分别止盈1/3仓位，锁定部分利润。</p>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h4>风险提示</h4>
+                        <ul>
+                            <li><strong>政策风险</strong>：中国政府可能出台新的支持政策，提振科技股和新能源汽车板块。</li>
+                            <li><strong>黑天鹅事件</strong>：如重大技术突破、战略合作或监管政策变化等。</li>
+                            <li><strong>市场情绪风险</strong>：市场情绪可能短期内持续高涨，推动股价进一步上涨。</li>
+                            <li><strong>做空成本</strong>：做空期间需支付融券费用，若做空周期延长，可能侵蚀利润。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="conclusion">
+            <h2>结论与展望</h2>
+            <p>综合分析表明，小米集团短期内股价面临多重下行压力，包括<span
+                    class="highlight-text">过高估值、汽车业务交付不及预期、中美贸易摩擦加剧、华为等竞争对手挑战、股东减持与融资压力以及技术面超买</span>等因素。这些因素相互作用，为短期做空提供了良好的机会。
+            </p>
+
+            <p>技术面显示，小米股价已处于历史高位，RSI接近超买区域，MACD死叉形成，沽空比例显著上升，<span
+                    class="highlight-text">短期回调风险极高</span>。预计在未来1-3个月内，小米股价有望从当前58.95港元高位回落至45-50港元区间，跌幅约15%-25%。</p>
+
+            <p>长期来看，小米的"人车家全生态"战略仍有潜力，但<span
+                    class="highlight-text">短期内估值与基本面的严重背离、汽车业务的巨额亏损以及竞争环境的恶化</span>，使得股价面临较大的下行风险。建议投资者把握当前高估值机会，考虑短期做空策略，同时密切关注汽车交付数据、中美贸易政策变化和竞争对手动态，及时调整投资策略。
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>小米集团短期投机做空分析报告</p>
+            <p>© 2025 金融分析报告. 保留所有权利。</p>
+            <p class="disclaimer">本报告仅供参考，不构成投资建议。投资有风险，入市需谨慎。</p>
+        </div>
+    </footer>
+
+    <script>
+        // 小米股价历史走势对比图
+        const stockCtx = document.getElementById('stockPriceChart').getContext('2d');
+        const stockChart = new Chart(stockCtx, {
+            type: 'line',
+            data: {
+                labels: ['2021-01', '2021-06', '2021-12', '2022-06', '2022-12', '2023-06', '2023-12', '2024-06', '2024-12', '2025-06'],
+                datasets: [
+                    {
+                        label: '小米集团股价 (港元)',
+                        data: [35.9, 28.5, 22.8, 15.6, 8.31, 12.5, 18.7, 25.3, 42.1, 58.95],
+                        borderColor: '#3498db',
+                        backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#3498db',
+                        pointRadius: 4,
+                        tension: 0.3
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        title: {
+                            display: true,
+                            text: '股价 (港元)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: '时间'
+                        }
+                    }
+                }
+            }
+        });
+
+        // 小米估值倍数与竞争对手对比图
+        const peCtx = document.getElementById('peRatioChart').getContext('2d');
+        const peChart = new Chart(peCtx, {
+            type: 'bar',
+            data: {
+                labels: ['小米', '腾讯', '阿里巴巴', '比亚迪'],
+                datasets: [
+                    {
+                        label: '2025年预期市盈率',
+                        data: [40, 32, 28, 34],
+                        backgroundColor: [
+                            'rgba(44, 62, 80, 0.8)',
+                            'rgba(52, 152, 219, 0.8)',
+                            'rgba(243, 156, 18, 0.8)',
+                            'rgba(231, 76, 60, 0.8)'
+                        ],
+                        borderColor: [
+                            '#2c3e50',
+                            '#3498db',
+                            '#f39c12',
+                            '#e74c3c'
+                        ],
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                return context.dataset.label + ': ' + context.raw + '倍';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: '市盈率 (倍)'
+                        }
+                    }
+                }
+            }
+        });
+
+        // 平滑滚动效果
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                window.scrollTo({
+                    top: targetElement.offsetTop - 70,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
